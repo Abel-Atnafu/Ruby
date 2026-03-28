@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruby | Modern Cafe & Bistro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-gem">&#128142;</div>
+      <div class="preloader-text">Ruby</div>
+      <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-icon">&#128142;</span>
+        <span class="logo-text">Ruby</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#story" class="nav-link">Our Story</a></li>
+        <li><a href="#menu" class="nav-link">Menu</a></li>
+        <li><a href="#specials" class="nav-link">Specials</a></li>
+        <li><a href="#gallery" class="nav-link">Gallery</a></li>
+        <li><a href="#testimonials" class="nav-link">Reviews</a></li>
+        <li><a href="#reservation" class="nav-link nav-cta">Reserve a Table</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Est. 2019 &middot; Modern Cafe &amp; Bistro</div>
+      <h1 class="hero-title">R<em>u</em>b<em>y</em></h1>
+      <p class="hero-tagline">Where every dish tells a story and every moment is savored.<br>Farm-to-table cuisine crafted with passion and served with soul.</p>
+      <div class="hero-buttons">
+        <a href="#reservation" class="btn btn-primary">Reserve a Table</a>
+        <a href="#menu" class="btn btn-outline">Explore Menu</a>
+      </div>
+      <div class="hero-scroll-indicator">
+        <span>Scroll to discover</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section id="story" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">About Us</span>
+        <h2 class="section-title">Our Story</h2>
+        <div class="section-divider"><span>&#x2726;</span></div>
+      </div>
+      <div class="story-grid">
+        <div class="story-image reveal reveal-left">
+          <div class="story-image-placeholder">
+            <span class="placeholder-emoji">&#x1F468;&#x200D;&#x1F373;</span>
+            <span class="placeholder-label">Chef Laurent in the Kitchen</span>
+          </div>
+          <div class="story-image-accent"></div>
+        </div>
+        <div class="story-text reveal reveal-right">
+          <h3>A Passion Born from Tradition</h3>
+          <p>Ruby was born from a simple yet profound belief: that exceptional food has the power to bring people together, spark conversation, and create lasting memories.</p>
+          <p>Founded by Chef Laurent Moreau in 2019, our bistro blends the warmth of classic European cooking with bold, contemporary flavors sourced from local farms and artisan producers within a 50-mile radius.</p>
+          <p>Every morning begins with our bakers shaping fresh sourdough, our baristas perfecting each pour, and our kitchen team hand-selecting the finest seasonal ingredients. This is not just a restaurant &mdash; it is a gathering place, a hearth around which stories unfold.</p>
+          <div class="story-signature">
+            <div class="signature-text">Chef Laurent Moreau</div>
+            <div class="signature-role">Founder &amp; Executive Chef</div>
+          </div>
+        </div>
+      </div>
+      <div class="story-stats reveal">
+        <div class="stat">
+          <span class="stat-number" data-target="7">0</span>
+          <span class="stat-label">Years of Excellence</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-target="48">0</span>
+          <span class="stat-label">Local Farm Partners</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-target="12000">0</span>
+          <span class="stat-label">Happy Guests Monthly</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-target="96">0</span>
+          <span class="stat-label">Signature Recipes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="section section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Culinary Offerings</span>
+        <h2 class="section-title">Our Menu</h2>
+        <div class="section-divider"><span>&#x2726;</span></div>
+        <p class="section-subtitle">Seasonal dishes crafted with locally sourced ingredients and global inspiration.</p>
+      </div>
+      <div class="menu-tabs reveal">
+        <button class="menu-tab active" data-tab="breakfast">&#x1F31E; Breakfast</button>
+        <button class="menu-tab" data-tab="lunch">&#x2600;&#xFE0F; Lunch</button>
+        <button class="menu-tab" data-tab="dinner">&#x1F319; Dinner</button>
+        <button class="menu-tab" data-tab="drinks">&#x1F378; Drinks</button>
+      </div>
+      <div class="menu-content">
+        <!-- Breakfast -->
+        <div class="menu-panel active" id="tab-breakfast">
+          <div class="menu-grid">
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Ruby French Toast</h4>
+                <span class="menu-price">$16</span>
+              </div>
+              <p>Thick-cut brioche, vanilla bean custard, fresh berries, Vermont maple syrup, whipped mascarpone</p>
+              <span class="menu-tag">Popular</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Shakshuka Skillet</h4>
+                <span class="menu-price">$18</span>
+              </div>
+              <p>Spiced tomato sauce, farm eggs, crumbled feta, za'atar, served with grilled sourdough</p>
+              <span class="menu-tag">Chef's Pick</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Avocado Benedict</h4>
+                <span class="menu-price">$19</span>
+              </div>
+              <p>Poached eggs, smashed avocado, hollandaise, everything bagel seasoning on an English muffin</p>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Granola &amp; Acai Bowl</h4>
+                <span class="menu-price">$14</span>
+              </div>
+              <p>House-made coconut granola, acai puree, banana, seasonal fruit, raw honey, chia seeds</p>
+              <span class="menu-tag vegan">Vegan</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Smoked Salmon Plate</h4>
+                <span class="menu-price">$21</span>
+              </div>
+              <p>Cold-smoked Atlantic salmon, cream cheese, capers, pickled red onion, toasted pumpernickel</p>
+            </div>
+          </div>
+        </div>
+        <!-- Lunch -->
+        <div class="menu-panel" id="tab-lunch">
+          <div class="menu-grid">
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Truffle Mushroom Risotto</h4>
+                <span class="menu-price">$24</span>
+              </div>
+              <p>Arborio rice, mixed wild mushrooms, black truffle oil, aged Parmesan, fresh thyme</p>
+              <span class="menu-tag">Popular</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Grilled Halloumi Salad</h4>
+                <span class="menu-price">$18</span>
+              </div>
+              <p>Warm halloumi, roasted beet, arugula, candied walnuts, pomegranate, citrus vinaigrette</p>
+              <span class="menu-tag vegan">Vegetarian</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Ruby Signature Burger</h4>
+                <span class="menu-price">$22</span>
+              </div>
+              <p>Dry-aged patty, aged cheddar, caramelized onion, house pickles, special sauce, brioche bun</p>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Pan-Seared Salmon Bowl</h4>
+                <span class="menu-price">$26</span>
+              </div>
+              <p>Crispy skin salmon, jasmine rice, pickled radish, edamame, miso-ginger glaze, nori</p>
+              <span class="menu-tag">Chef's Pick</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Lobster Mac &amp; Cheese</h4>
+                <span class="menu-price">$28</span>
+              </div>
+              <p>Cavatappi pasta, Maine lobster, three-cheese bechamel, herb breadcrumb crust, truffle oil</p>
+            </div>
+          </div>
+        </div>
+        <!-- Dinner -->
+        <div class="menu-panel" id="tab-dinner">
+          <div class="menu-grid">
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Filet Mignon</h4>
+                <span class="menu-price">$48</span>
+              </div>
+              <p>8oz center-cut, roasted garlic mash, grilled asparagus, red wine demi-glace, bone marrow butter</p>
+              <span class="menu-tag">Signature</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Seared Duck Breast</h4>
+                <span class="menu-price">$38</span>
+              </div>
+              <p>Cherry gastrique, sweet potato puree, braised red cabbage, toasted hazelnuts</p>
+              <span class="menu-tag">Chef's Pick</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Herb-Crusted Rack of Lamb</h4>
+                <span class="menu-price">$44</span>
+              </div>
+              <p>Dijon-herb crust, roasted fingerlings, minted pea puree, natural jus</p>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Seafood Linguine</h4>
+                <span class="menu-price">$34</span>
+              </div>
+              <p>Shrimp, mussels, clams, calamari, San Marzano tomato, white wine, fresh basil, chili flake</p>
+              <span class="menu-tag">Popular</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Wild Mushroom Wellington</h4>
+                <span class="menu-price">$30</span>
+              </div>
+              <p>Porcini duxelles, spinach, goat cheese, golden puff pastry, roasted root vegetables, truffle cream</p>
+              <span class="menu-tag vegan">Vegetarian</span>
+            </div>
+          </div>
+        </div>
+        <!-- Drinks -->
+        <div class="menu-panel" id="tab-drinks">
+          <div class="menu-grid">
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Ruby Old Fashioned</h4>
+                <span class="menu-price">$16</span>
+              </div>
+              <p>Woodford Reserve, demerara, aromatic bitters, flamed orange peel, Luxardo cherry</p>
+              <span class="menu-tag">Signature</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Lavender Bee's Knees</h4>
+                <span class="menu-price">$15</span>
+              </div>
+              <p>Empress gin, lavender-honey syrup, fresh lemon, edible flowers</p>
+              <span class="menu-tag">Popular</span>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Artisan Pour-Over Coffee</h4>
+                <span class="menu-price">$6</span>
+              </div>
+              <p>Single-origin rotating selection, hand-poured Chemex, served with house-made biscotti</p>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Spiced Chai Latte</h4>
+                <span class="menu-price">$7</span>
+              </div>
+              <p>House-blended chai, oat milk, cardamom, cinnamon, star anise, raw honey</p>
+            </div>
+            <div class="menu-item reveal">
+              <div class="menu-item-header">
+                <h4>Sommelier's Wine Flight</h4>
+                <span class="menu-price">$28</span>
+              </div>
+              <p>Four curated 3oz pours from our cellar, rotating selection with tasting notes card</p>
+              <span class="menu-tag">Chef's Pick</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chef's Specials -->
+  <section id="specials" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Not to Be Missed</span>
+        <h2 class="section-title">Chef's Specials</h2>
+        <div class="section-divider"><span>&#x2726;</span></div>
+      </div>
+      <div class="specials-grid">
+        <div class="special-card reveal">
+          <div class="special-image" style="background: linear-gradient(135deg, #8B4513, #D2691E);">
+            <span class="special-emoji">&#x1F969;</span>
+            <div class="special-badge">Seasonal</div>
+          </div>
+          <div class="special-info">
+            <h4>48-Hour Braised Short Rib</h4>
+            <p>Slow-braised in red wine and aromatics, served over creamy polenta with gremolata and roasted root vegetables.</p>
+            <div class="special-footer">
+              <span class="special-price">$42</span>
+              <span class="special-tag">Limited Availability</span>
+            </div>
+          </div>
+        </div>
+        <div class="special-card featured reveal">
+          <div class="special-image" style="background: linear-gradient(135deg, #2F4F4F, #4A766E);">
+            <span class="special-emoji">&#x1F99E;</span>
+            <div class="special-badge">Featured</div>
+          </div>
+          <div class="special-info">
+            <h4>Whole Roasted Lobster</h4>
+            <p>2lb Maine lobster, drawn butter, charred lemon, grilled corn, new potatoes, fresh herbs. A true celebration dish.</p>
+            <div class="special-footer">
+              <span class="special-price">$58</span>
+              <span class="special-tag">Weekend Only</span>
+            </div>
+          </div>
+        </div>
+        <div class="special-card reveal">
+          <div class="special-image" style="background: linear-gradient(135deg, #6B3A6B, #9B6B9B);">
+            <span class="special-emoji">&#x1F370;</span>
+            <div class="special-badge">New</div>
+          </div>
+          <div class="special-info">
+            <h4>Dark Chocolate Lava Cake</h4>
+            <p>Valrhona chocolate, molten center, vanilla bean ice cream, salted caramel, gold leaf. Pure indulgence.</p>
+            <div class="special-footer">
+              <span class="special-price">$18</span>
+              <span class="special-tag">Save Room</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="section section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Visual Feast</span>
+        <h2 class="section-title">Gallery</h2>
+        <div class="section-divider"><span>&#x2726;</span></div>
+      </div>
+      <div class="gallery-grid reveal">
+        <div class="gallery-item gallery-tall" style="background: linear-gradient(160deg, #A0522D 0%, #CD853F 100%);">
+          <span class="gallery-emoji">&#x2615;</span>
+          <span class="gallery-label">Artisan Coffee</span>
+          <div class="gallery-overlay"><p>Hand-poured with love, every single cup</p></div>
+        </div>
+        <div class="gallery-item" style="background: linear-gradient(160deg, #8B0000 0%, #CD5C5C 100%);">
+          <span class="gallery-emoji">&#x1F372;</span>
+          <span class="gallery-label">Truffle Risotto</span>
+          <div class="gallery-overlay"><p>Our signature dish since day one</p></div>
+        </div>
+        <div class="gallery-item" style="background: linear-gradient(160deg, #2E8B57 0%, #66CDAA 100%);">
+          <span class="gallery-emoji">&#x1F957;</span>
+          <span class="gallery-label">Garden Salad</span>
+          <div class="gallery-overlay"><p>Farm-to-table, always in season</p></div>
+        </div>
+        <div class="gallery-item gallery-wide" style="background: linear-gradient(160deg, #4A3728 0%, #8B7355 100%);">
+          <span class="gallery-emoji">&#x1F35E;</span>
+          <span class="gallery-label">Fresh Sourdough</span>
+          <div class="gallery-overlay"><p>Baked fresh every morning at 5 AM</p></div>
+        </div>
+        <div class="gallery-item gallery-tall" style="background: linear-gradient(160deg, #722F37 0%, #B5485D 100%);">
+          <span class="gallery-emoji">&#x1F377;</span>
+          <span class="gallery-label">Wine Cellar Selection</span>
+          <div class="gallery-overlay"><p>Over 200 labels from around the world</p></div>
+        </div>
+        <div class="gallery-item" style="background: linear-gradient(160deg, #B8860B 0%, #FFD700 100%);">
+          <span class="gallery-emoji">&#x1F950;</span>
+          <span class="gallery-label">Butter Croissants</span>
+          <div class="gallery-overlay"><p>Flaky, golden, utterly perfect</p></div>
+        </div>
+        <div class="gallery-item" style="background: linear-gradient(160deg, #DC143C 0%, #FF6B6B 100%);">
+          <span class="gallery-emoji">&#x1F969;</span>
+          <span class="gallery-label">Filet Mignon</span>
+          <div class="gallery-overlay"><p>Aged to perfection, seared with love</p></div>
+        </div>
+        <div class="gallery-item gallery-wide" style="background: linear-gradient(160deg, #483D8B 0%, #7B68EE 100%);">
+          <span class="gallery-emoji">&#x1F370;</span>
+          <span class="gallery-label">Chocolate Lava Cake</span>
+          <div class="gallery-overlay"><p>70% Valrhona, molten perfection</p></div>
+        </div>
+        <div class="gallery-item" style="background: linear-gradient(160deg, #008B8B 0%, #48D1CC 100%);">
+          <span class="gallery-emoji">&#x1F99E;</span>
+          <span class="gallery-label">Fresh Lobster</span>
+          <div class="gallery-overlay"><p>Sustainably sourced, daily catch</p></div>
+        </div>
+        <div class="gallery-item" style="background: linear-gradient(160deg, #556B2F 0%, #9ACD32 100%);">
+          <span class="gallery-emoji">&#x1F375;</span>
+          <span class="gallery-label">Matcha Latte</span>
+          <div class="gallery-overlay"><p>Ceremonial grade, perfectly whisked</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">What People Say</span>
+        <h2 class="section-title">Guest Reviews</h2>
+        <div class="section-divider"><span>&#x2726;</span></div>
+      </div>
+      <div class="testimonial-carousel reveal">
+        <div class="testimonial-track" id="testimonialTrack">
+          <div class="testimonial-slide">
+            <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+            <blockquote>"An unforgettable dining experience. The truffle risotto was heavenly, and the atmosphere transported us to a Parisian bistro. We've found our new favorite spot."</blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar" style="background: #C4A265;">M</div>
+              <div>
+                <div class="author-name">Margaret Chen</div>
+                <div class="author-detail">Food Critic, City Palate</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-slide">
+            <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+            <blockquote>"We celebrated our anniversary here and it was absolutely magical. The staff went above and beyond, and the filet mignon was the best I've ever had. Thank you, Ruby!"</blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar" style="background: #7B2D3B;">J</div>
+              <div>
+                <div class="author-name">James &amp; Sofia R.</div>
+                <div class="author-detail">Anniversary Celebration</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-slide">
+            <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+            <blockquote>"The brunch here is worth waking up early for. The shakshuka is life-changing, and the pour-over coffee is the best in the city. A genuine gem that never disappoints."</blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar" style="background: #4A766E;">D</div>
+              <div>
+                <div class="author-name">David Okafor</div>
+                <div class="author-detail">Regular Guest</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-slide">
+            <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+            <blockquote>"As someone with dietary restrictions, I'm always nervous dining out. The team here made me feel completely at ease. Every dish was crafted with care and tasted incredible."</blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar" style="background: #8B6914;">A</div>
+              <div>
+                <div class="author-name">Amara Patel</div>
+                <div class="author-detail">Wellness Blogger</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-slide">
+            <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+            <blockquote>"I brought a group of 12 for a birthday dinner and everything was flawless. The private dining area, the wine pairings, the chocolate lava cake &mdash; pure perfection from start to finish."</blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar" style="background: #6B3A6B;">R</div>
+              <div>
+                <div class="author-name">Rachel Dominguez</div>
+                <div class="author-detail">Private Event Host</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-controls">
+          <button class="carousel-btn prev" id="carouselPrev" aria-label="Previous review">&#x2190;</button>
+          <div class="carousel-dots" id="carouselDots"></div>
+          <button class="carousel-btn next" id="carouselNext" aria-label="Next review">&#x2192;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation -->
+  <section id="reservation" class="section section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Join Us</span>
+        <h2 class="section-title">Reserve a Table</h2>
+        <div class="section-divider"><span>&#x2726;</span></div>
+        <p class="section-subtitle">Secure your seat at Ruby. For parties over 8, please call us directly.</p>
+      </div>
+      <form class="reservation-form reveal" id="reservationForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resName">Full Name *</label>
+            <input type="text" id="resName" name="name" placeholder="Your name" required>
+            <span class="form-error" id="errorName"></span>
+          </div>
+          <div class="form-group">
+            <label for="resEmail">Email Address *</label>
+            <input type="email" id="resEmail" name="email" placeholder="you@email.com" required>
+            <span class="form-error" id="errorEmail"></span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resPhone">Phone Number *</label>
+            <input type="tel" id="resPhone" name="phone" placeholder="(555) 000-0000" required>
+            <span class="form-error" id="errorPhone"></span>
+          </div>
+          <div class="form-group">
+            <label for="resGuests">Number of Guests *</label>
+            <select id="resGuests" name="guests" required>
+              <option value="">Select guests</option>
+              <option>1 Guest</option>
+              <option>2 Guests</option>
+              <option>3 Guests</option>
+              <option>4 Guests</option>
+              <option>5 Guests</option>
+              <option>6 Guests</option>
+              <option>7 Guests</option>
+              <option>8 Guests</option>
+            </select>
+            <span class="form-error" id="errorGuests"></span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resDate">Date *</label>
+            <input type="date" id="resDate" name="date" required>
+            <span class="form-error" id="errorDate"></span>
+          </div>
+          <div class="form-group">
+            <label for="resTime">Preferred Time *</label>
+            <select id="resTime" name="time" required>
+              <option value="">Select time</option>
+              <option>8:00 AM</option>
+              <option>9:00 AM</option>
+              <option>10:00 AM</option>
+              <option>11:00 AM</option>
+              <option>12:00 PM</option>
+              <option>1:00 PM</option>
+              <option>2:00 PM</option>
+              <option>5:00 PM</option>
+              <option>6:00 PM</option>
+              <option>7:00 PM</option>
+              <option>8:00 PM</option>
+              <option>9:00 PM</option>
+            </select>
+            <span class="form-error" id="errorTime"></span>
+          </div>
+        </div>
+        <div class="form-group full-width">
+          <label for="resRequests">Special Requests</label>
+          <textarea id="resRequests" name="requests" rows="4" placeholder="Allergies, dietary preferences, special occasions, seating preferences..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-submit">Confirm Reservation</button>
+        <div class="form-success" id="formSuccess">
+          <span class="success-icon">&#x2713;</span>
+          <h4>Reservation Confirmed!</h4>
+          <p>We've sent a confirmation to your email. We look forward to hosting you at Ruby.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Contact / Location -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Find Us</span>
+        <h2 class="section-title">Visit Ruby</h2>
+        <div class="section-divider"><span>&#x2726;</span></div>
+      </div>
+      <div class="contact-grid reveal">
+        <div class="contact-card">
+          <div class="contact-icon">&#x1F4CD;</div>
+          <h4>Location</h4>
+          <p>247 Ruby Lane<br>Downtown Arts District<br>New York, NY 10012</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">&#x1F556;</div>
+          <h4>Hours</h4>
+          <p>
+            <strong>Mon&ndash;Fri:</strong> 7:00 AM &ndash; 10:00 PM<br>
+            <strong>Saturday:</strong> 8:00 AM &ndash; 11:00 PM<br>
+            <strong>Sunday:</strong> 8:00 AM &ndash; 9:00 PM
+          </p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">&#x1F4DE;</div>
+          <h4>Contact</h4>
+          <p>
+            <strong>Phone:</strong> (212) 555-RUBY<br>
+            <strong>Email:</strong> hello@rubybistro.com<br>
+            <strong>Events:</strong> events@rubybistro.com
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="logo-icon">&#128142;</span>
+            <span>Ruby</span>
+          </div>
+          <p>Where every dish tells a story and every moment is savored. Farm-to-table cuisine crafted with passion.</p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Instagram">IG</a>
+            <a href="#" class="social-link" aria-label="Facebook">FB</a>
+            <a href="#" class="social-link" aria-label="Twitter">TW</a>
+            <a href="#" class="social-link" aria-label="TikTok">TK</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#specials">Chef's Specials</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#reservation">Reservations</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>More</h4>
+          <ul>
+            <li><a href="#">Private Events</a></li>
+            <li><a href="#">Gift Cards</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Accessibility</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter">
+          <h4>Stay Connected</h4>
+          <p>Subscribe for seasonal menus, events, and exclusive offers.</p>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-primary">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Ruby Cafe &amp; Bistro. All rights reserved.</p>
+        <p>Crafted with passion and good taste.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
