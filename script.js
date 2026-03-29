@@ -1,5 +1,5 @@
 /* =============================================
-   RUBY CAFE & BISTRO - SCRIPT.JS
+   QUEEN BURGER - SCRIPT.JS
    ============================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,29 +7,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Preloader ---
   const preloader = document.getElementById('preloader');
   window.addEventListener('load', () => {
-    setTimeout(() => {
-      preloader.classList.add('loaded');
-    }, 2000);
+    setTimeout(() => preloader.classList.add('loaded'), 2000);
   });
-  // Fallback: hide preloader after 3s regardless
   setTimeout(() => preloader.classList.add('loaded'), 3000);
 
-  // --- Hero Particles ---
-  const heroParticles = document.getElementById('heroParticles');
-  if (heroParticles) {
-    for (let i = 0; i < 30; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('hero-particle');
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.animationDelay = Math.random() * 6 + 's';
-      particle.style.animationDuration = (4 + Math.random() * 4) + 's';
-      particle.style.width = (2 + Math.random() * 3) + 'px';
-      particle.style.height = particle.style.width;
-      heroParticles.appendChild(particle);
+  // --- Hero Flames ---
+  const heroFlames = document.getElementById('heroFlames');
+  if (heroFlames) {
+    for (let i = 0; i < 25; i++) {
+      const flame = document.createElement('div');
+      flame.classList.add('hero-flame');
+      flame.style.left = Math.random() * 100 + '%';
+      flame.style.animationDelay = Math.random() * 6 + 's';
+      flame.style.animationDuration = (5 + Math.random() * 5) + 's';
+      const size = 4 + Math.random() * 8;
+      flame.style.width = size + 'px';
+      flame.style.height = size + 'px';
+      heroFlames.appendChild(flame);
     }
   }
 
-  // --- Navbar Scroll Effect ---
+  // --- Navbar Scroll ---
   const navbar = document.getElementById('navbar');
   const navLinks = document.querySelectorAll('.nav-link:not(.nav-cta)');
   const sections = document.querySelectorAll('section[id]');
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navbar.classList.remove('scrolled');
     }
 
-    // Active link highlighting
     let current = '';
     sections.forEach(section => {
       const sectionTop = section.offsetTop - 120;
@@ -68,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinksContainer.classList.toggle('open');
   });
 
-  // Close mobile menu on link click
   navLinksContainer.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
@@ -76,29 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Menu Tabs ---
-  const menuTabs = document.querySelectorAll('.menu-tab');
-  const menuPanels = document.querySelectorAll('.menu-panel');
-
-  menuTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
-
-      menuTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      menuPanels.forEach(panel => {
-        panel.classList.remove('active');
-        if (panel.id === 'tab-' + target) {
-          panel.classList.add('active');
-        }
-      });
-    });
-  });
-
-  // --- Scroll Reveal (IntersectionObserver) ---
+  // --- Scroll Reveal ---
   const revealElements = document.querySelectorAll('.reveal');
-
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -106,16 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -40px 0px'
-  });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
   revealElements.forEach(el => revealObserver.observe(el));
 
-  // --- Stat Counter Animation ---
+  // --- Stat Counter ---
   const statNumbers = document.querySelectorAll('.stat-number[data-target]');
-
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -136,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function update(now) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
       const current = Math.round(eased * target);
 
       if (target >= 1000) {
@@ -163,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let autoplayInterval;
 
   if (slides.length > 0) {
-    // Create dots
     slides.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.classList.add('carousel-dot');
@@ -178,49 +148,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function goToSlide(index) {
       currentSlide = index;
       track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentSlide);
-      });
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
     }
 
-    function nextSlide() {
-      goToSlide((currentSlide + 1) % slides.length);
-    }
+    function nextSlide() { goToSlide((currentSlide + 1) % slides.length); }
+    function prevSlide() { goToSlide((currentSlide - 1 + slides.length) % slides.length); }
 
-    function prevSlide() {
-      goToSlide((currentSlide - 1 + slides.length) % slides.length);
-    }
+    nextBtn.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
+    prevBtn.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
 
-    nextBtn.addEventListener('click', () => {
-      nextSlide();
-      resetAutoplay();
-    });
-
-    prevBtn.addEventListener('click', () => {
-      prevSlide();
-      resetAutoplay();
-    });
-
-    // Autoplay
-    function startAutoplay() {
-      autoplayInterval = setInterval(nextSlide, 5000);
-    }
-
-    function resetAutoplay() {
-      clearInterval(autoplayInterval);
-      startAutoplay();
-    }
-
+    function startAutoplay() { autoplayInterval = setInterval(nextSlide, 5000); }
+    function resetAutoplay() { clearInterval(autoplayInterval); startAutoplay(); }
     startAutoplay();
 
-    // Pause on hover
     const carousel = document.querySelector('.testimonial-carousel');
     carousel.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
     carousel.addEventListener('mouseleave', startAutoplay);
   }
 
-  // --- Reservation Form Validation ---
-  const form = document.getElementById('reservationForm');
+  // --- Order Form Validation ---
+  const form = document.getElementById('orderForm');
   const formSuccess = document.getElementById('formSuccess');
 
   if (form) {
@@ -228,85 +175,58 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       let valid = true;
 
-      // Clear errors
       form.querySelectorAll('.form-error').forEach(el => el.textContent = '');
       form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
 
-      // Name
-      const name = document.getElementById('resName');
+      const name = document.getElementById('orderName');
       if (!name.value.trim()) {
         showError('errorName', 'Please enter your name');
         name.classList.add('error');
         valid = false;
       }
 
-      // Email
-      const email = document.getElementById('resEmail');
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!email.value.trim()) {
-        showError('errorEmail', 'Please enter your email');
-        email.classList.add('error');
-        valid = false;
-      } else if (!emailRegex.test(email.value)) {
-        showError('errorEmail', 'Please enter a valid email');
-        email.classList.add('error');
-        valid = false;
-      }
-
-      // Phone
-      const phone = document.getElementById('resPhone');
+      const phone = document.getElementById('orderPhone');
       if (!phone.value.trim()) {
         showError('errorPhone', 'Please enter your phone number');
         phone.classList.add('error');
         valid = false;
       }
 
-      // Guests
-      const guests = document.getElementById('resGuests');
-      if (!guests.value) {
-        showError('errorGuests', 'Please select number of guests');
-        guests.classList.add('error');
+      const burger = document.getElementById('orderBurger');
+      if (!burger.value) {
+        showError('errorBurger', 'Please select a burger');
+        burger.classList.add('error');
         valid = false;
       }
 
-      // Date
-      const date = document.getElementById('resDate');
-      if (!date.value) {
-        showError('errorDate', 'Please select a date');
-        date.classList.add('error');
-        valid = false;
-      } else {
-        const selected = new Date(date.value);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        if (selected < today) {
-          showError('errorDate', 'Please select a future date');
-          date.classList.add('error');
-          valid = false;
-        }
-      }
-
-      // Time
-      const time = document.getElementById('resTime');
-      if (!time.value) {
-        showError('errorTime', 'Please select a time');
-        time.classList.add('error');
+      const fries = document.getElementById('orderFries');
+      if (!fries.value) {
+        showError('errorFries', 'Please select your fries');
+        fries.classList.add('error');
         valid = false;
       }
 
       if (valid) {
-        // Simulate submission
-        const submitBtn = form.querySelector('.btn-submit');
-        submitBtn.textContent = 'Booking...';
-        submitBtn.disabled = true;
-
-        setTimeout(() => {
-          form.style.display = 'none';
-          formSuccess.classList.add('show');
-          submitBtn.textContent = 'Confirm Reservation';
-          submitBtn.disabled = false;
-        }, 1500);
+        form.style.display = 'none';
+        formSuccess.classList.add('show');
       }
+    });
+
+    // Live validation on blur
+    const inputs = form.querySelectorAll('input[required], select[required]');
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => {
+        if (!input.value.trim()) {
+          input.classList.add('error');
+        } else {
+          input.classList.remove('error');
+        }
+      });
+      input.addEventListener('input', () => {
+        input.classList.remove('error');
+        const errorEl = input.parentElement.querySelector('.form-error');
+        if (errorEl) errorEl.textContent = '';
+      });
     });
   }
 
@@ -316,47 +236,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Newsletter Form ---
-  const newsletterForm = document.getElementById('newsletterForm');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
+  const newsletter = document.getElementById('newsletterForm');
+  if (newsletter) {
+    newsletter.addEventListener('submit', (e) => {
       e.preventDefault();
-      const input = newsletterForm.querySelector('input');
-      const btn = newsletterForm.querySelector('button');
-      const originalText = btn.textContent;
-      btn.textContent = 'Subscribed!';
+      const input = newsletter.querySelector('input');
+      const btn = newsletter.querySelector('button');
+      btn.textContent = 'Joined!';
       btn.style.background = '#2E8B57';
       input.value = '';
       setTimeout(() => {
-        btn.textContent = originalText;
+        btn.textContent = 'Join';
         btn.style.background = '';
       }, 3000);
     });
   }
 
   // --- Smooth Scroll for anchor links ---
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const targetId = link.getAttribute('href');
-      if (targetId === '#') return;
-      const target = document.querySelector(targetId);
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
       if (target) {
         e.preventDefault();
         const offset = navbar.offsetHeight + 10;
-        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        const top = target.offsetTop - offset;
         window.scrollTo({ top, behavior: 'smooth' });
       }
     });
   });
-
-  // --- Parallax on Hero Background ---
-  const heroBg = document.querySelector('.hero-bg');
-  if (heroBg) {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY;
-      if (scrolled < window.innerHeight) {
-        heroBg.style.transform = 'scale(1.05) translateY(' + (scrolled * 0.3) + 'px)';
-      }
-    }, { passive: true });
-  }
 
 });
