@@ -1,2 +1,4 @@
 node_modules/
 queen_burger.db
+queen_burger.db-shm
+queen_burger.db-wal
