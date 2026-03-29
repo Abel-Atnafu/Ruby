@@ -207,8 +207,36 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (valid) {
-        form.style.display = 'none';
-        formSuccess.classList.add('show');
+        const submitBtn = form.querySelector('.btn-submit');
+        submitBtn.textContent = 'Placing Order...';
+        submitBtn.disabled = true;
+
+        fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name.value.trim(),
+            phone: phone.value.trim(),
+            burger: burger.value,
+            fries: fries.value,
+            notes: document.getElementById('orderNotes').value.trim()
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            form.style.display = 'none';
+            formSuccess.classList.add('show');
+          }
+        })
+        .catch(() => {
+          form.style.display = 'none';
+          formSuccess.classList.add('show');
+        })
+        .finally(() => {
+          submitBtn.textContent = '\u{1F451} Place My Order';
+          submitBtn.disabled = false;
+        });
       }
     });
 
@@ -242,9 +270,26 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const input = newsletter.querySelector('input');
       const btn = newsletter.querySelector('button');
-      btn.textContent = 'Joined!';
-      btn.style.background = '#2E8B57';
-      input.value = '';
+
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: input.value.trim() })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success || data.error === 'Already subscribed') {
+          btn.textContent = data.error ? 'Already joined!' : 'Joined!';
+          btn.style.background = '#2E8B57';
+          input.value = '';
+        }
+      })
+      .catch(() => {
+        btn.textContent = 'Joined!';
+        btn.style.background = '#2E8B57';
+        input.value = '';
+      });
+
       setTimeout(() => {
         btn.textContent = 'Join';
         btn.style.background = '';

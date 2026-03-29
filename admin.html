@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queen Burger | Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a; --black-light: #141414; --black-card: #1a1a1a;
+      --gold: #C4A035; --gold-bright: #FFD700; --gold-dim: #8B7328;
+      --white: #fff; --white-dim: #ccc; --gray: #888;
+      --green: #2E8B57; --red: #E63946; --blue: #4A90D9; --orange: #FF8C00;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--white); min-height: 100vh; }
+
+    /* Header */
+    .admin-header {
+      background: var(--black-light); border-bottom: 1px solid rgba(196,160,53,0.15);
+      padding: 16px 32px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .admin-logo { font-family: 'Cinzel', serif; font-size: 20px; color: var(--gold); display: flex; align-items: center; gap: 8px; }
+    .admin-nav { display: flex; gap: 12px; align-items: center; }
+    .admin-nav a { color: var(--white-dim); font-size: 13px; text-decoration: none; padding: 8px 16px; border-radius: 6px; transition: 0.3s; }
+    .admin-nav a:hover { color: var(--gold); background: rgba(196,160,53,0.1); }
+    .refresh-btn {
+      background: var(--gold); color: var(--black); border: none; padding: 8px 20px;
+      border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; transition: 0.3s;
+    }
+    .refresh-btn:hover { background: var(--gold-bright); }
+
+    /* Container */
+    .admin-container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+
+    /* Stats Grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card {
+      background: var(--black-card); border: 1px solid rgba(196,160,53,0.1);
+      border-radius: 10px; padding: 24px; text-align: center; transition: 0.3s;
+    }
+    .stat-card:hover { border-color: var(--gold-dim); }
+    .stat-card .stat-value { font-family: 'Cinzel', serif; font-size: 36px; font-weight: 900; color: var(--gold); }
+    .stat-card .stat-label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; margin-top: 6px; }
+
+    /* Filters */
+    .filters { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 8px 20px; border-radius: 6px; border: 1px solid rgba(196,160,53,0.2);
+      background: transparent; color: var(--white-dim); cursor: pointer; font-size: 13px;
+      transition: 0.3s; font-family: 'Inter', sans-serif;
+    }
+    .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .filter-btn.active { background: var(--gold); color: var(--black); border-color: var(--gold); font-weight: 600; }
+
+    /* Orders Table */
+    .orders-section h2 {
+      font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold);
+      margin-bottom: 16px; letter-spacing: 2px;
+    }
+    .orders-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid rgba(196,160,53,0.1); }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: var(--black-card); font-family: 'Cinzel', serif; font-size: 11px;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--gold);
+      padding: 14px 16px; text-align: left; white-space: nowrap;
+    }
+    td { padding: 14px 16px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: var(--white-dim); }
+    tr:hover td { background: rgba(196,160,53,0.03); }
+
+    /* Status badges */
+    .status-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 20px;
+      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .status-new { background: rgba(74,144,217,0.15); color: var(--blue); }
+    .status-preparing { background: rgba(255,140,0,0.15); color: var(--orange); }
+    .status-ready { background: rgba(46,139,87,0.15); color: var(--green); }
+    .status-completed { background: rgba(136,136,136,0.15); color: var(--gray); }
+    .status-cancelled { background: rgba(230,57,70,0.15); color: var(--red); }
+
+    /* Action buttons */
+    .action-btns { display: flex; gap: 6px; }
+    .action-btn {
+      padding: 5px 12px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);
+      background: transparent; color: var(--white-dim); cursor: pointer; font-size: 11px;
+      transition: 0.3s;
+    }
+    .action-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .action-btn.delete:hover { border-color: var(--red); color: var(--red); }
+
+    /* Status select */
+    .status-select {
+      background: var(--black); border: 1px solid rgba(196,160,53,0.2);
+      color: var(--white); padding: 5px 8px; border-radius: 4px; font-size: 12px;
+      cursor: pointer; outline: none;
+    }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--gray); }
+    .empty-state .empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state p { font-size: 15px; }
+
+    /* Subscribers section */
+    .subscribers-section { margin-top: 48px; }
+    .sub-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    .sub-card {
+      background: var(--black-card); border: 1px solid rgba(196,160,53,0.1);
+      border-radius: 8px; padding: 16px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .sub-email { font-size: 14px; color: var(--white-dim); }
+    .sub-date { font-size: 11px; color: var(--gray); }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: var(--gold);
+      color: var(--black); padding: 14px 24px; border-radius: 8px;
+      font-weight: 600; font-size: 14px; z-index: 1000;
+      transform: translateY(100px); opacity: 0; transition: 0.4s ease;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    @media (max-width: 768px) {
+      .admin-header { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
+      .admin-container { padding: 16px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      th, td { padding: 10px 12px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="admin-header">
+    <div class="admin-logo">&#x1F451; Queen Burger Admin</div>
+    <div class="admin-nav">
+      <a href="/">View Website</a>
+      <button class="refresh-btn" onclick="loadAll()">Refresh</button>
+    </div>
+  </header>
+
+  <div class="admin-container">
+    <!-- Stats -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card"><div class="stat-value" id="statTotal">-</div><div class="stat-label">Total Orders</div></div>
+      <div class="stat-card"><div class="stat-value" id="statToday">-</div><div class="stat-label">Today</div></div>
+      <div class="stat-card"><div class="stat-value" id="statNew">-</div><div class="stat-label">New</div></div>
+      <div class="stat-card"><div class="stat-value" id="statPreparing">-</div><div class="stat-label">Preparing</div></div>
+      <div class="stat-card"><div class="stat-value" id="statCompleted">-</div><div class="stat-label">Completed</div></div>
+      <div class="stat-card"><div class="stat-value" id="statSubs">-</div><div class="stat-label">Subscribers</div></div>
+    </div>
+
+    <!-- Orders -->
+    <div class="orders-section">
+      <h2>&#x1F451; Orders</h2>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="new">New</button>
+        <button class="filter-btn" data-filter="preparing">Preparing</button>
+        <button class="filter-btn" data-filter="ready">Ready</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+        <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+      </div>
+      <div class="orders-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Burger</th>
+              <th>Fries</th>
+              <th>Notes</th>
+              <th>Status</th>
+              <th>Time</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="empty-icon">&#x1F354;</div>
+        <p>No orders yet. They'll show up here when customers order.</p>
+      </div>
+    </div>
+
+    <!-- Subscribers -->
+    <div class="subscribers-section">
+      <h2>&#x1F4E7; Newsletter Subscribers</h2>
+      <div class="sub-list" id="subList"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const API = '';
+    let currentFilter = 'all';
+
+    async function loadStats() {
+      try {
+        const res = await fetch(API + '/api/stats');
+        const data = await res.json();
+        document.getElementById('statTotal').textContent = data.totalOrders;
+        document.getElementById('statToday').textContent = data.todayOrders;
+        document.getElementById('statNew').textContent = data.newOrders;
+        document.getElementById('statPreparing').textContent = data.preparingOrders;
+        document.getElementById('statCompleted').textContent = data.completedOrders;
+        document.getElementById('statSubs').textContent = data.totalSubscribers;
+      } catch (err) {
+        console.error('Failed to load stats:', err);
+      }
+    }
+
+    async function loadOrders(filter) {
+      try {
+        const url = filter && filter !== 'all'
+          ? API + '/api/orders?status=' + filter
+          : API + '/api/orders';
+        const res = await fetch(url);
+        const data = await res.json();
+        renderOrders(data.orders);
+      } catch (err) {
+        console.error('Failed to load orders:', err);
+      }
+    }
+
+    function renderOrders(orders) {
+      const tbody = document.getElementById('ordersBody');
+      const empty = document.getElementById('emptyState');
+
+      if (orders.length === 0) {
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+      tbody.innerHTML = orders.map(order => `
+        <tr>
+          <td><strong>#${order.id}</strong></td>
+          <td>${escHtml(order.name)}</td>
+          <td>${escHtml(order.phone)}</td>
+          <td><strong>${escHtml(order.burger)}</strong></td>
+          <td>${escHtml(order.fries)}</td>
+          <td>${order.notes ? escHtml(order.notes) : '<span style="color:#555">—</span>'}</td>
+          <td>
+            <select class="status-select" onchange="updateStatus(${order.id}, this.value)">
+              ${['new','preparing','ready','completed','cancelled'].map(s =>
+                `<option value="${s}" ${order.status === s ? 'selected' : ''}>${s.charAt(0).toUpperCase() + s.slice(1)}</option>`
+              ).join('')}
+            </select>
+          </td>
+          <td style="white-space:nowrap; font-size:12px; color:#888">${formatDate(order.created_at)}</td>
+          <td>
+            <div class="action-btns">
+              <button class="action-btn delete" onclick="deleteOrder(${order.id})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function updateStatus(id, status) {
+      try {
+        await fetch(API + '/api/orders/' + id, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        showToast('Order #' + id + ' → ' + status.toUpperCase());
+        loadStats();
+      } catch (err) {
+        showToast('Failed to update order');
+      }
+    }
+
+    async function deleteOrder(id) {
+      if (!confirm('Delete order #' + id + '?')) return;
+      try {
+        await fetch(API + '/api/orders/' + id, { method: 'DELETE' });
+        showToast('Order #' + id + ' deleted');
+        loadAll();
+      } catch (err) {
+        showToast('Failed to delete order');
+      }
+    }
+
+    async function loadSubscribers() {
+      try {
+        const res = await fetch(API + '/api/subscribers');
+        const data = await res.json();
+        const list = document.getElementById('subList');
+        if (data.subscribers.length === 0) {
+          list.innerHTML = '<p style="color:#888; font-size:14px;">No subscribers yet.</p>';
+          return;
+        }
+        list.innerHTML = data.subscribers.map(s => `
+          <div class="sub-card">
+            <span class="sub-email">${escHtml(s.email)}</span>
+            <span class="sub-date">${formatDate(s.created_at)}</span>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error('Failed to load subscribers:', err);
+      }
+    }
+
+    function loadAll() {
+      loadStats();
+      loadOrders(currentFilter);
+      loadSubscribers();
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        loadOrders(currentFilter);
+      });
+    });
+
+    function formatDate(dateStr) {
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
+        ' ' + d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function escHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // Auto-refresh every 30 seconds
+    loadAll();
+    setInterval(loadAll, 30000);
+  </script>
+</body>
+</html>
