@@ -126,11 +126,11 @@ ul { list-style: none; }
 }
 .hero-bg {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at center bottom, #2C1810 0%, #1a0f0a 30%, #0a0a0a 70%);
+  background-size: cover; background-position: center; background-repeat: no-repeat;
 }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.7) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.8) 100%);
 }
 .hero-flames { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .hero-flame {
@@ -207,15 +207,11 @@ ul { list-style: none; }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 60px; }
 .about-image { position: relative; }
 .about-image-placeholder {
-  background: linear-gradient(135deg, #2C1810, #5C3A21);
-  border-radius: 12px; aspect-ratio: 4/5; display: flex;
-  flex-direction: column; align-items: center; justify-content: center;
+  border-radius: 12px; aspect-ratio: 4/5; overflow: hidden;
   border: 1px solid rgba(196,160,53,0.2);
 }
-.placeholder-emoji { font-size: 80px; }
-.placeholder-label {
-  font-family: var(--font-heading); font-size: 14px; color: var(--gold-dim);
-  margin-top: 16px; letter-spacing: 3px; text-transform: uppercase;
+.about-image-placeholder img {
+  width: 100%; height: 100%; object-fit: cover;
 }
 .about-image-accent {
   position: absolute; top: -15px; left: -15px; right: 15px; bottom: 15px;
@@ -291,24 +287,14 @@ ul { list-style: none; }
   box-shadow: var(--shadow);
 }
 .lava-image {
-  position: relative; background: linear-gradient(135deg, #B22222, #FF4500, #FF6B35);
-  border-radius: 12px; aspect-ratio: 1; display: flex;
-  flex-direction: column; align-items: center; justify-content: center; overflow: hidden;
+  position: relative; border-radius: 12px; aspect-ratio: 1;
+  overflow: hidden;
 }
-.lava-emoji { font-size: 100px; z-index: 2; animation: lavaPulse 2s ease infinite; }
-@keyframes lavaPulse {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  25% { transform: scale(1.05) rotate(-2deg); }
-  75% { transform: scale(1.05) rotate(2deg); }
+.lava-image img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease;
 }
-.lava-flames { position: absolute; bottom: 10px; display: flex; gap: 10px; font-size: 40px; z-index: 1; }
-.lava-flames span { animation: lavaFlame 1.5s ease infinite; }
-.lava-flames span:nth-child(2) { animation-delay: 0.3s; }
-.lava-flames span:nth-child(3) { animation-delay: 0.6s; }
-@keyframes lavaFlame {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 1; }
-  50% { transform: translateY(-15px) scale(1.2); opacity: 0.7; }
-}
+.lava-card:hover .lava-image img { transform: scale(1.05); }
 .lava-badge {
   position: absolute; top: 16px; left: 16px; background: var(--black);
   padding: 8px 16px; border-radius: 6px; font-family: var(--font-heading);
@@ -334,19 +320,22 @@ ul { list-style: none; }
   grid-auto-rows: 220px; gap: 16px;
 }
 .gallery-item {
-  border-radius: 12px; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; position: relative;
+  border-radius: 12px; position: relative;
   overflow: hidden; cursor: pointer; transition: transform 0.4s ease;
 }
-.gallery-item:hover { transform: scale(1.03); }
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.gallery-item:hover { transform: scale(1.02); }
+.gallery-item:hover img { transform: scale(1.1); }
 .gallery-tall { grid-row: span 2; }
 .gallery-wide { grid-column: span 2; }
-.gallery-emoji { font-size: 56px; z-index: 2; transition: transform 0.4s ease; }
-.gallery-item:hover .gallery-emoji { transform: scale(1.2); }
 .gallery-label {
+  position: absolute; bottom: 16px; left: 16px; right: 16px;
   font-family: var(--font-heading); font-size: 13px; color: var(--white);
-  letter-spacing: 3px; text-transform: uppercase; margin-top: 12px;
-  z-index: 2; text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  letter-spacing: 3px; text-transform: uppercase;
+  z-index: 2; text-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }
 .gallery-overlay {
   position: absolute; inset: 0; background: rgba(0,0,0,0.7);
