@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queen Burger | Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:#080808; --black-1:#111; --black-2:#181818; --black-card:#1e1e1e;
+      --gold:#C4A035; --gold-bright:#FFD700; --gold-dim:#8B7328;
+      --white:#fff; --white-dim:#ccc; --grey:#777;
+      --green:#2E8B57; --red:#E63946; --blue:#4A90D9; --orange:#FF8C00;
+      --border:rgba(196,160,53,.12);
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);min-height:100vh;}
+
+    /* ── Header ─────────────────────────────────────── */
+    .ah {
+      background:var(--black-1);border-bottom:1px solid var(--border);
+      padding:14px 28px;display:flex;align-items:center;justify-content:space-between;
+      position:sticky;top:0;z-index:100;gap:12px;
+    }
+    .ah-logo{font-family:'Cinzel',serif;font-size:18px;color:var(--gold);display:flex;align-items:center;gap:8px;}
+    .ah-nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+    .ah-nav a{
+      color:var(--white-dim);font-size:13px;text-decoration:none;
+      padding:7px 14px;border-radius:6px;transition:.25s;
+    }
+    .ah-nav a:hover{color:var(--gold);background:rgba(196,160,53,.08);}
+    .btn-refresh{
+      background:var(--gold);color:var(--black);border:none;
+      padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;
+      font-size:13px;transition:.25s;font-family:'Inter',sans-serif;
+    }
+    .btn-refresh:hover{background:var(--gold-bright);}
+
+    /* ── Layout ─────────────────────────────────────── */
+    .ac{max-width:1280px;margin:0 auto;padding:28px 20px;}
+
+    /* ── Stats grid ─────────────────────────────────── */
+    .stats{
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+      gap:14px;margin-bottom:28px;
+    }
+    .sc{
+      background:var(--black-card);border:1px solid var(--border);
+      border-radius:10px;padding:22px 18px;text-align:center;transition:.25s;
+    }
+    .sc:hover{border-color:var(--gold-dim);}
+    .sc-val{
+      font-family:'Cinzel',serif;font-size:34px;font-weight:900;
+      background:linear-gradient(135deg,var(--gold-dim),var(--gold-bright));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .sc-lbl{font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:2px;margin-top:6px;}
+
+    /* ── Section titles ─────────────────────────────── */
+    .sec-title{
+      font-family:'Cinzel',serif;font-size:20px;color:var(--gold);
+      letter-spacing:2px;margin-bottom:16px;display:flex;align-items:center;gap:10px;
+    }
+    .sec-title span{font-size:13px;font-family:'Inter',sans-serif;color:var(--grey);font-weight:400;letter-spacing:0;}
+
+    /* ── Filters ─────────────────────────────────────── */
+    .filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+    .fbtn{
+      padding:7px 18px;border-radius:6px;border:1px solid var(--border);
+      background:transparent;color:var(--white-dim);cursor:pointer;
+      font-size:12px;transition:.25s;font-family:'Inter',sans-serif;
+    }
+    .fbtn:hover{border-color:var(--gold);color:var(--gold);}
+    .fbtn.on{background:var(--gold);color:var(--black);border-color:var(--gold);font-weight:700;}
+
+    /* ── Table ───────────────────────────────────────── */
+    .tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);}
+    table{width:100%;border-collapse:collapse;}
+    thead th{
+      background:var(--black-card);font-family:'Cinzel',serif;font-size:10px;
+      letter-spacing:2px;text-transform:uppercase;color:var(--gold);
+      padding:13px 14px;text-align:left;white-space:nowrap;
+    }
+    tbody td{
+      padding:13px 14px;border-top:1px solid rgba(255,255,255,.04);
+      font-size:13px;color:var(--white-dim);
+    }
+    tbody tr:hover td{background:rgba(196,160,53,.03);}
+    .tid{color:var(--white);font-weight:600;}
+
+    /* ── Status badges ───────────────────────────────── */
+    .badge{
+      display:inline-block;padding:3px 10px;border-radius:20px;
+      font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+    }
+    .b-new       {background:rgba(74,144,217,.15);color:var(--blue);}
+    .b-preparing {background:rgba(255,140,0,.15);color:var(--orange);}
+    .b-ready     {background:rgba(46,139,87,.2);color:var(--green);}
+    .b-completed {background:rgba(136,136,136,.15);color:var(--grey);}
+    .b-cancelled {background:rgba(230,57,70,.15);color:var(--red);}
+
+    /* ── Status select ───────────────────────────────── */
+    .ss{
+      background:var(--black);border:1px solid var(--border);
+      color:var(--white);padding:5px 8px;border-radius:5px;
+      font-size:12px;cursor:pointer;outline:none;font-family:'Inter',sans-serif;
+    }
+    .ss:focus{border-color:var(--gold);}
+
+    /* ── Action buttons ──────────────────────────────── */
+    .act-btn{
+      padding:4px 10px;border-radius:4px;border:1px solid rgba(255,255,255,.1);
+      background:transparent;color:var(--white-dim);cursor:pointer;
+      font-size:11px;transition:.25s;font-family:'Inter',sans-serif;
+    }
+    .act-btn:hover{border-color:var(--gold);color:var(--gold);}
+    .act-btn.del:hover{border-color:var(--red);color:var(--red);}
+
+    /* ── Empty state ─────────────────────────────────── */
+    .empty{text-align:center;padding:60px 20px;color:var(--grey);}
+    .empty-icon{font-size:48px;margin-bottom:16px;}
+
+    /* ── Subscribers ─────────────────────────────────── */
+    .sub-grid{
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;
+    }
+    .sub-card{
+      background:var(--black-card);border:1px solid var(--border);
+      border-radius:8px;padding:14px 18px;
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+    }
+    .sub-email{font-size:13px;color:var(--white-dim);}
+    .sub-date{font-size:11px;color:var(--grey);white-space:nowrap;}
+
+    /* ── Toast ───────────────────────────────────────── */
+    .toast{
+      position:fixed;bottom:24px;right:24px;z-index:200;
+      background:var(--gold);color:var(--black);
+      padding:12px 22px;border-radius:8px;font-weight:700;font-size:14px;
+      transform:translateY(80px);opacity:0;transition:.4s ease;pointer-events:none;
+    }
+    .toast.show{transform:translateY(0);opacity:1;}
+
+    /* ── Popular ─────────────────────────────────────── */
+    .popular-bar{
+      background:var(--black-card);border:1px solid var(--border);
+      border-radius:8px;padding:16px 20px;margin-bottom:28px;
+      display:flex;align-items:center;gap:16px;
+    }
+    .pop-icon{font-size:28px;}
+    .pop-label{font-size:12px;color:var(--grey);text-transform:uppercase;letter-spacing:1px;}
+    .pop-val{font-family:'Cinzel',serif;font-size:17px;color:var(--gold);}
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media(max-width:640px){
+      .ah{padding:10px 14px;}
+      .ac{padding:16px 12px;}
+      .stats{grid-template-columns:1fr 1fr;}
+      thead th,tbody td{padding:9px 10px;font-size:11px;}
+    }
+  </style>
+</head>
+<body>
+
+  <header class="ah">
+    <div class="ah-logo">&#x1F451; Queen Burger Admin</div>
+    <div class="ah-nav">
+      <a href="/">&#x1F3E0; View Site</a>
+      <button class="btn-refresh" onclick="loadAll()">&#x21BB; Refresh</button>
+    </div>
+  </header>
+
+  <div class="ac">
+
+    <!-- Stats -->
+    <div class="stats" id="statsGrid">
+      <div class="sc"><div class="sc-val" id="sTotal">—</div><div class="sc-lbl">Total Orders</div></div>
+      <div class="sc"><div class="sc-val" id="sToday">—</div><div class="sc-lbl">Today</div></div>
+      <div class="sc"><div class="sc-val" id="sNew">—</div><div class="sc-lbl">New</div></div>
+      <div class="sc"><div class="sc-val" id="sPreparing">—</div><div class="sc-lbl">Preparing</div></div>
+      <div class="sc"><div class="sc-val" id="sReady">—</div><div class="sc-lbl">Ready</div></div>
+      <div class="sc"><div class="sc-val" id="sCompleted">—</div><div class="sc-lbl">Completed</div></div>
+      <div class="sc"><div class="sc-val" id="sSubs">—</div><div class="sc-lbl">Subscribers</div></div>
+    </div>
+
+    <!-- Popular Burger -->
+    <div class="popular-bar">
+      <div class="pop-icon">&#x1F3C6;</div>
+      <div>
+        <div class="pop-label">Most Ordered Burger</div>
+        <div class="pop-val" id="sPopular">—</div>
+      </div>
+    </div>
+
+    <!-- Orders -->
+    <div class="sec-title">&#x1F451; Orders <span id="orderCount"></span></div>
+    <div class="filters">
+      <button class="fbtn on" data-f="all">All</button>
+      <button class="fbtn" data-f="new">New</button>
+      <button class="fbtn" data-f="preparing">Preparing</button>
+      <button class="fbtn" data-f="ready">Ready</button>
+      <button class="fbtn" data-f="completed">Completed</button>
+      <button class="fbtn" data-f="cancelled">Cancelled</button>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Burger</th>
+            <th>Fries</th>
+            <th>Notes</th>
+            <th>Status</th>
+            <th>Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="emptyState" style="display:none;">
+      <div class="empty-icon">&#x1F354;</div>
+      <p>No orders here yet.</p>
+    </div>
+
+    <!-- Subscribers -->
+    <div class="sec-title" style="margin-top:48px;">&#x1F4E7; Newsletter Subscribers <span id="subCount"></span></div>
+    <div class="sub-grid" id="subGrid"></div>
+    <div class="empty" id="subEmpty" style="display:none;">
+      <p>No subscribers yet.</p>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let currentFilter = 'all';
+
+    // ── Load all data ──────────────────────────────────
+    async function loadAll() {
+      await Promise.all([loadStats(), loadOrders(currentFilter), loadSubscribers()]);
+    }
+
+    // ── Stats ──────────────────────────────────────────
+    async function loadStats() {
+      try {
+        const d = await fetch('/api/stats').then(r => r.json());
+        document.getElementById('sTotal').textContent     = fmt(d.totalOrders);
+        document.getElementById('sToday').textContent     = fmt(d.todayOrders);
+        document.getElementById('sNew').textContent       = fmt(d.newOrders);
+        document.getElementById('sPreparing').textContent = fmt(d.preparingOrders);
+        document.getElementById('sReady').textContent     = fmt(d.readyOrders ?? '—');
+        document.getElementById('sCompleted').textContent = fmt(d.completedOrders);
+        document.getElementById('sSubs').textContent      = fmt(d.totalSubscribers);
+        document.getElementById('sPopular').textContent   = d.popularBurger || 'N/A';
+      } catch(e) { console.error('Stats error', e); }
+    }
+
+    // ── Orders ─────────────────────────────────────────
+    async function loadOrders(filter) {
+      try {
+        const url = (filter && filter !== 'all')
+          ? '/api/orders?status=' + filter
+          : '/api/orders';
+        const d = await fetch(url).then(r => r.json());
+        renderOrders(d.orders || []);
+        const el = document.getElementById('orderCount');
+        if (el) el.textContent = `(${d.total ?? d.orders?.length ?? 0})`;
+      } catch(e) { console.error('Orders error', e); }
+    }
+
+    function renderOrders(orders) {
+      const tbody  = document.getElementById('ordersBody');
+      const empty  = document.getElementById('emptyState');
+      if (!orders.length) {
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      tbody.innerHTML = orders.map(o => `
+        <tr>
+          <td class="tid">#${o.id}</td>
+          <td>${esc(o.name)}</td>
+          <td>${esc(o.phone)}</td>
+          <td><strong>${esc(o.burger)}</strong></td>
+          <td>${esc(o.fries)}</td>
+          <td>${o.notes ? esc(o.notes) : '<span style="color:#444">—</span>'}</td>
+          <td>
+            <select class="ss" onchange="updateStatus(${o.id},this.value)">
+              ${['new','preparing','ready','completed','cancelled'].map(s =>
+                `<option value="${s}"${o.status===s?' selected':''}>${cap(s)}</option>`
+              ).join('')}
+            </select>
+          </td>
+          <td style="white-space:nowrap;font-size:11px;color:var(--grey)">${fmtDate(o.created_at)}</td>
+          <td>
+            <button class="act-btn del" onclick="deleteOrder(${o.id})">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // ── Update status ──────────────────────────────────
+    async function updateStatus(id, status) {
+      try {
+        await fetch('/api/orders/' + id, {
+          method:'PATCH',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({status}),
+        });
+        toast('Order #' + id + ' → ' + cap(status));
+        loadStats();
+      } catch { toast('Failed to update'); }
+    }
+
+    // ── Delete order ───────────────────────────────────
+    async function deleteOrder(id) {
+      if (!confirm('Delete order #' + id + '?')) return;
+      try {
+        await fetch('/api/orders/' + id, {method:'DELETE'});
+        toast('Order #' + id + ' deleted');
+        loadAll();
+      } catch { toast('Failed to delete'); }
+    }
+
+    // ── Subscribers ────────────────────────────────────
+    async function loadSubscribers() {
+      try {
+        const d = await fetch('/api/subscribers').then(r => r.json());
+        const grid  = document.getElementById('subGrid');
+        const empty = document.getElementById('subEmpty');
+        const count = document.getElementById('subCount');
+        if (count) count.textContent = `(${d.total})`;
+        if (!d.subscribers.length) {
+          grid.innerHTML = ''; empty.style.display = 'block'; return;
+        }
+        empty.style.display = 'none';
+        grid.innerHTML = d.subscribers.map(s => `
+          <div class="sub-card">
+            <span class="sub-email">&#x2709;&#xFE0F; ${esc(s.email)}</span>
+            <span class="sub-date">${fmtDate(s.created_at)}</span>
+          </div>
+        `).join('');
+      } catch(e) { console.error('Subs error', e); }
+    }
+
+    // ── Filter buttons ─────────────────────────────────
+    document.querySelectorAll('.fbtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+        btn.classList.add('on');
+        currentFilter = btn.dataset.f;
+        loadOrders(currentFilter);
+      });
+    });
+
+    // ── Helpers ────────────────────────────────────────
+    function fmt(v) { return v === undefined ? '—' : v; }
+    function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+    function esc(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+    function fmtDate(str) {
+      const d = new Date(str);
+      return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' +
+             d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    }
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // ── Init ───────────────────────────────────────────
+    loadAll();
+    setInterval(loadAll, 30000);
+  </script>
+</body>
+</html>
